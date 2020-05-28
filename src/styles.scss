@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import "main";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  width: 100%;
+}
