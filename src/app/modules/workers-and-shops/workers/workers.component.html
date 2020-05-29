@@ -1,15 +1,15 @@
 <div class="workers-nav">
-  <div *ngFor="let w of addedWorkers" class="worker-nav-tab">
+  <div *ngFor="let w of addedWorkers; trackBy: trackByFn" class="worker-nav-tab">
     <div class="worker-avatar">
       <img [attr.src]="" alt="аватарка сотрудника">
     </div>
   </div>
 
-  <div class="button-add-worker">
-    <button color="primary" mat-fab>
+  <div (click)="onAddWorkerClick()" class="button-add-worker">
+    <button color="primary" mat-fab [disabled]="!workers?.length">
       <mat-icon>add</mat-icon>
     </button>
-    <p *ngIf="!addedWorkers" class="button-add-worker__description">Добавить специалиста</p>
+    <p *ngIf="!addedWorkers?.length" class="button-add-worker__description">Добавить специалиста</p>
   </div>
 </div>
 
