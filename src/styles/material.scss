@@ -1,0 +1,25 @@
+/**
+  Custom styles for material elements
+ */
+
+.workers-nav__tabs {
+  .mat-tab-labels {
+    padding-right: 70px;
+  }
+
+  .mat-tab-label {
+    width: unset;
+    min-width: unset;
+    height: unset;
+    padding: 0 7px;
+  }
+
+  .mat-ink-bar {
+    height: 0;
+    visibility: hidden;
+  }
+
+  .mat-tab-header {
+    border-bottom: none;
+  }
+}

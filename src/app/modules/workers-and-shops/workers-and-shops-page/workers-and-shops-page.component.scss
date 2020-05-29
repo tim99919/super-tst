@@ -13,9 +13,19 @@
 .workers-shops-wrapper {
   display: flex;
 
+  height: 100%;
   padding: 50px 55px;
 }
 
-.col-half {
+.workers {
+  display: block;
+
+  width: 100%;
+  padding-right: 30px;
+}
+
+.col {
+  display: flex;
   width: 50%;
+  height: 100%;
 }

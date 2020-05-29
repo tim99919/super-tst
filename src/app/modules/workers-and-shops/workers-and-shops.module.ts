@@ -5,6 +5,7 @@ import {WorkersAndShopsRoutingModule} from './workers-and-shops-routing.module';
 import {WorkersAndShopsPageComponent} from './workers-and-shops-page/workers-and-shops-page.component';
 import {WorkersComponent} from './workers/workers.component';
 import {ShopsComponent} from './shops/shops.component';
+import {MaterialModule} from '../../material.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {ShopsComponent} from './shops/shops.component';
   ],
   imports: [
     CommonModule,
-    WorkersAndShopsRoutingModule
+    WorkersAndShopsRoutingModule,
+    MaterialModule
   ]
 })
 export class WorkersAndShopsModule {

@@ -1,1 +1,28 @@
-<p>workers works</p>
+<div class="workers-nav">
+  <div
+    [ngClass]="{'button-add-worker--align-right': addedWorkers}"
+    class="button-add-worker"
+  >
+    <button color="primary" mat-fab>
+      <mat-icon>add</mat-icon>
+    </button>
+    <p *ngIf="!addedWorkers" class="button-add-worker__description">Добавить специалиста</p>
+  </div>
+
+  <mat-tab-group
+    *ngIf="addedWorkers"
+    class="workers-nav__tabs"
+    mat-stretch-tabs
+  >
+    <mat-tab *ngFor="let w of addedWorkers">
+      <ng-template mat-tab-label>
+        <div class="worker-nav-tab">
+          <div class="worker-avatar">
+            <img [attr.src]="" alt="аватарка сотрудника">
+          </div>
+        </div>
+      </ng-template>
+      Content 1
+    </mat-tab>
+  </mat-tab-group>
+</div>
