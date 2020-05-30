@@ -18,7 +18,8 @@
 }
 
 .workers {
-  display: block;
+  display: flex;
+  flex-flow: column;
 
   width: 100%;
   padding-right: 30px;

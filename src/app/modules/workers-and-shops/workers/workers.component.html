@@ -1,12 +1,21 @@
 <div class="workers-nav">
-  <div *ngFor="let w of addedWorkers; trackBy: trackByFn" class="worker-nav-tab">
-    <div class="worker-avatar">
-      <img [attr.src]="" alt="аватарка сотрудника">
+  <div class="workers-nav__tabs">
+    <div
+      *ngFor="let w of addedWorkers; trackBy: trackByFn"
+      [ngClass]="{'worker-nav-tab--active': w.id === activeWorkerId}"
+      class="worker-nav-tab"
+    >
+      <div
+        (click)="onWorkerTabClick(w.id)"
+        class="worker-nav-tab__avatar"
+      >
+        <img [attr.src]="w.logo" alt="аватарка сотрудника" height="100%" width="100%">
+      </div>
     </div>
   </div>
 
   <div (click)="onAddWorkerClick()" class="button-add-worker">
-    <button color="primary" mat-fab [disabled]="!workers?.length">
+    <button [disabled]="!workers?.length" color="primary" mat-fab>
       <mat-icon>add</mat-icon>
     </button>
     <p *ngIf="!addedWorkers?.length" class="button-add-worker__description">Добавить специалиста</p>
@@ -14,6 +23,21 @@
 </div>
 
 
-<div class="worker-content">
-
+<div *ngIf="addedWorkers?.length; else emptyWorkersTpl" class="worker-container">
+  <div class="worker-info">
+    <h4 class="worker-info__part-header">Специалист</h4>
+    <div class="worker-info__name">
+      <img [attr.src]="activeWorker.logo" alt="аватарка сотрудника" class="worker-info__avatar" height="100%">
+      {{activeWorker.fullName}}
+    </div>
+    <h4 class="worker-info__part-header">Магазины</h4>
+  </div>
 </div>
+
+<ng-template #emptyWorkersTpl>
+  <div class="worker-container worker-container--empty">
+    <h3>специалист не назначен</h3>
+    <p>Чтобы начать работу с нераспределенными магазинами вам необходимо добавить хотя бы одного специалиста</p>
+    <mat-icon class="add-person-icon">person_add_alt_1</mat-icon>
+  </div>
+</ng-template>

@@ -19,10 +19,16 @@ export class WorkersComponent implements OnInit {
 
   workers: IWorker[];
 
+  activeWorkerId: number;
+
   private _addedWorkers = new Map<number, IWorker>();
 
   get addedWorkers(): IWorker[] {
     return [...this._addedWorkers.values()];
+  }
+
+  get activeWorker(): IWorker {
+    return this._addedWorkers.get(this.activeWorkerId);
   }
 
   constructor(private _cdr: ChangeDetectorRef) {
@@ -45,6 +51,8 @@ export class WorkersComponent implements OnInit {
       return;
     }
 
+    this.activeWorkerId = worker.id;
+
     this._addedWorkers.set(worker.id, worker);
     this._cdr.markForCheck();
   }
@@ -53,6 +61,11 @@ export class WorkersComponent implements OnInit {
     const worker = this._addedWorkers.get(id);
 
     this.workers.push(worker);
+  }
+
+  onWorkerTabClick(workerId: number) {
+    this.activeWorkerId = workerId;
+    this._cdr.markForCheck();
   }
 
   private _getWorker() {
