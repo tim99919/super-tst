@@ -31,6 +31,9 @@
       {{activeWorker.fullName}}
     </div>
     <h4 class="worker-info__part-header header">Магазины</h4>
+    <div *ngIf="activeWorker?.shops as shops" class="worker-info__shops">
+      <div *ngFor="let s of shops">{{s.name}}</div>
+    </div>
   </div>
 </div>
 

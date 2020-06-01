@@ -8,7 +8,7 @@
 
 <div *ngFor="let s of shops; trackBy: trackById" class="shop">
   <div class="move-button-wrapper">
-    <button class="move-button" mat-icon-button>
+    <button (click)="onMoveButtonClick(s)" class="move-button" mat-icon-button>
       <mat-icon inline>arrow_right_alt</mat-icon>
     </button>
   </div>

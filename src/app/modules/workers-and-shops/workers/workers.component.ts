@@ -1,11 +1,13 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit} from '@angular/core';
 import {of} from 'rxjs';
 import MOCK_USERS from '../../../mocks/users';
+import {IShop, IShops} from '../shops/shops.component';
 
 interface IWorker {
   id: number;
   fullName: string;
   logo: string;
+  shops?: IShops;
 }
 
 @Component({
@@ -64,6 +66,16 @@ export class WorkersComponent implements OnInit {
   onWorkerTabClick(workerId: number) {
     this.activeWorkerId = workerId;
     this._cdr.markForCheck();
+  }
+
+  addWorkerShop(shop: IShop) {
+    this._cdr.markForCheck();
+
+    if (!this.activeWorker.shops) {
+      this.activeWorker.shops = [];
+    }
+
+    this.activeWorker.shops.push(shop);
   }
 
   private _getWorker() {
