@@ -25,6 +25,17 @@
   padding-right: 30px;
 }
 
+.shops {
+  display: flex;
+  flex-flow: column;
+
+  width: 100%;
+  padding: 40px;
+  border: 2px dashed $super-color-text-faded;
+  border-radius: 15px;
+}
+
+
 .col {
   display: flex;
   width: 50%;

@@ -1,4 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, OnInit} from '@angular/core';
+import MOCK_SHOPS from '../../../mocks/shops';
+import {of} from 'rxjs';
+
+interface IShop {
+  id: number;
+  name: string;
+  fullAddress: string;
+}
+
+type IShops = IShop[];
 
 @Component({
   selector: 'super-shops',
@@ -7,10 +17,18 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShopsComponent implements OnInit {
+  @HostBinding('class') readonly classes = ['shops'];
 
-  constructor() { }
+  shops: IShops;
 
-  ngOnInit() {
+  constructor() {
   }
 
+  ngOnInit() {
+    of(MOCK_SHOPS).subscribe((s: IShops) => this.shops = s);
+  }
+
+  trackById(index: number, shop: IShop): number {
+    return shop.id;
+  }
 }
