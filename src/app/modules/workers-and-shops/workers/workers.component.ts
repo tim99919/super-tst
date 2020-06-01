@@ -35,9 +35,7 @@ export class WorkersComponent implements OnInit {
   }
 
   ngOnInit() {
-    of(MOCK_USERS).subscribe((v: IWorker[]) => {
-      this.workers = v;
-    });
+    of(MOCK_USERS).subscribe((w: IWorker[]) => this.workers = w);
   }
 
   trackByFn(index: number, worker: IWorker): number {

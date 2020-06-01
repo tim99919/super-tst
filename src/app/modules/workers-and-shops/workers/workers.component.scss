@@ -3,21 +3,25 @@
 
 .workers-nav {
   position: relative;
+  left: -10px;
 
   display: flex;
   align-items: center;
 
-  width: 100%;
+  width: calc(100% + 10px);
   min-height: 90px;
 
   &__tabs {
+    overflow-x: hidden;
     display: flex;
+
+    padding: 10px 10px 6px 10px;
   }
 }
 
 .worker-nav-tab {
-  position: relative;
   flex: 1 0 auto;
+  position: relative;
   height: 90px;
   width: 90px;
   margin: 0 7px;
@@ -36,8 +40,19 @@
   }
 
   &--active {
-    opacity: 1;
     box-shadow: 0 0 10px;
+    opacity: 1;
+
+    &:after {
+      content: '';
+      z-index: 99;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ffffff;
+      height: 18px;
+    }
   }
 
   &:first-child {
@@ -47,28 +62,17 @@
   &:last-child {
     margin-right: 0;
   }
-
-  &:after {
-    content: '';
-    z-index: 99;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ffffff;
-    height: 18px;
-  }
 }
 
 .button-add-worker {
   display: flex;
   align-items: center;
-  padding: 10px 7px;
+  padding: 10px 15px;
 
   &__description {
     padding-left: 20px;
 
-    color: $super-color-bg-text;
+    color: $super-color-text;
     font-size: .9em;
     font-weight: 500;
   }
@@ -97,12 +101,12 @@
     justify-content: center;
     align-items: center;
 
-    padding: 0;
-    border: 2px dashed $super-color-bg-text-faded;
+    padding: 20px;
+    border: 2px dashed $super-color-text-faded;
     border-radius: 15px;
 
     text-align: center;
-    color: $super-color-bg-text-faded;
+    color: $super-color-text-faded;
 
     background-color: $super-color-bg-dark;
     box-shadow: none;
@@ -114,7 +118,7 @@
 
     h3 {
       text-transform: uppercase;
-      color: $super-color-bg-text;
+      color: $super-color-text;
     }
 
     .add-person-icon {
@@ -124,11 +128,11 @@
 }
 
 .worker-info {
-  &__part-header {
-    color: $super-color-bg-text-faded;
-    font-weight: 300;
-  }
-
+  //&__part-header {
+  //  color: $super-color-bg-text-faded;
+  //  font-weight: 300;
+  //}
+  //
   &__name {
     display: flex;
     align-items: center;

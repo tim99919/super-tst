@@ -1,2 +1,7 @@
 @import "colors";
 @import "material";
+
+.header {
+  color: $super-color-text-faded;
+  font-weight: 300;
+}

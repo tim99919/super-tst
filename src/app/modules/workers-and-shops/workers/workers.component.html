@@ -25,12 +25,12 @@
 
 <div *ngIf="addedWorkers?.length; else emptyWorkersTpl" class="worker-container">
   <div class="worker-info">
-    <h4 class="worker-info__part-header">Специалист</h4>
+    <h4 class="worker-info__part-header header">Специалист</h4>
     <div class="worker-info__name">
       <img [attr.src]="activeWorker.logo" alt="аватарка сотрудника" class="worker-info__avatar" height="100%">
       {{activeWorker.fullName}}
     </div>
-    <h4 class="worker-info__part-header">Магазины</h4>
+    <h4 class="worker-info__part-header header">Магазины</h4>
   </div>
 </div>
 
