@@ -1,6 +1,8 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, OnDestroy, OnInit, Output} from '@angular/core';
 import {WorkersShopsDataService} from '../workers-shops-data.service';
 import {IShop, IShops} from '../models';
+import {WorkersShopsStateService} from '../workers-shops-state.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'super-shops',
@@ -8,7 +10,7 @@ import {IShop, IShops} from '../models';
   styleUrls: ['./shops.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShopsComponent implements OnInit {
+export class ShopsComponent implements OnInit, OnDestroy {
   @HostBinding('class') readonly classes = ['shops'];
 
   @Output()
@@ -16,17 +18,28 @@ export class ShopsComponent implements OnInit {
 
   shops: IShops;
 
+  activeWorker;
+
+  readonly destroySbj = new Subject();
+
   // Shops stored in Map for restoring them from here
   private _movedShops = new Map<number, IShop>();
 
   constructor(
     private _cdr: ChangeDetectorRef,
-    private _dataService: WorkersShopsDataService
+    private _dataService: WorkersShopsDataService,
+    private _wsStateService: WorkersShopsStateService
   ) {
   }
 
   ngOnInit(): void {
     this._dataService.getShopsData().subscribe((s: IShops) => this.shops = s);
+
+    this._wsStateService.activeWorker$
+      .subscribe(v => {
+        this.activeWorker = v;
+        this._cdr.markForCheck();
+      });
   }
 
   trackById(index: number, shop: IShop): number {
@@ -43,5 +56,10 @@ export class ShopsComponent implements OnInit {
   restoreShopFromMoved(shopId: number): void {
     this.shops.push(this._movedShops.get(shopId));
     this._cdr.markForCheck();
+  }
+
+  ngOnDestroy() {
+    this.destroySbj.next();
+    this.destroySbj.complete();
   }
 }

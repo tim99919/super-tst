@@ -128,24 +128,34 @@
 }
 
 .worker-info {
-  //&__part-header {
-  //  color: $super-color-bg-text-faded;
-  //  font-weight: 300;
-  //}
-  //
-  &__name {
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 90px;
+  padding: 10px 0;
 
-    height: 90px;
-    padding: 10px 0;
-  }
-
-  &__avatar {
-    padding: 7px 0;
+  &__logo {
+    padding: 7px;
     border-radius: 100%;
 
     object-fit: contain;
     object-position: left;
+
+    & > img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  &__shops-count {
+    margin-left: 10px;
+    color: $super-color-accent;
+  }
+
+  &__delete-button {
+    margin-left: auto;
+  }
+
+  &__name {
   }
 }

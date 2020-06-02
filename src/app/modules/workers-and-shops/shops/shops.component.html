@@ -1,14 +1,19 @@
 <div class="shops__header-wrapper">
   <h4 class="shops__header header">Нераспределенные магазины:</h4>
-  <span class="shops__count">{{1}}</span>
-  <span class="shops__warn">
+  <span class="shops__count">{{shops?.length}}</span>
+  <span *ngIf="shops?.length" class="shops__warn">
     <mat-icon class="shops__warn__icon" color="accent" inline>warning</mat-icon>
   </span>
 </div>
 
 <div *ngFor="let s of shops; trackBy: trackById" class="shop shop-info">
   <div class="move-button-wrapper">
-    <button (click)="onMoveButtonClick(s)" class="move-button" mat-icon-button>
+    <button
+      (click)="onMoveButtonClick(s)"
+      [disabled]="activeWorker === null"
+      class="move-button"
+      mat-icon-button
+    >
       <mat-icon inline>arrow_right_alt</mat-icon>
     </button>
   </div>

@@ -24,33 +24,44 @@
 
 
 <div *ngIf="addedWorkers?.length; else emptyWorkersTpl" class="worker-container">
+  <h4 class="part-header header">Специалист</h4>
   <div class="worker-info">
-    <h4 class="worker-info__part-header header">Специалист</h4>
-    <div class="worker-info__name">
-      <img [attr.src]="activeWorker.logo" alt="аватарка сотрудника" class="worker-info__avatar" height="100%">
-      {{activeWorker.fullName}}
-      <button (click)="onWorkerDeleteClick()" mat-icon-button>
-        <mat-icon>delete_outline</mat-icon>
-      </button>
+    <div class="worker-info__logo">
+      <img [attr.src]="activeWorker.logo" alt="аватарка сотрудника">
     </div>
-    <h4 class="worker-info__part-header header">Магазины</h4>
-    <div *ngIf="activeWorker?.shops as shops" class="worker-info__shops">
-      <div *ngFor="let s of shops" class="shop shop-info">
-        <div class="shop-info__logo">SBS</div>
-        <div class="shop-info__wrapper">
-          <div class="shop-info__name">
-            {{s.name}}
-          </div>
-          <div class="shop-info__address">
-            {{s.fullAddress}}
-          </div>
+
+    <div class="worker-info__name">{{activeWorker.fullName}}</div>
+
+    <div *ngIf="activeWorker.shops?.length as shopsCount" class="worker-info__shops-count">
+      {{shopsCount}} магазин
+    </div>
+
+    <button (click)="onWorkerDeleteClick()" class="worker-info__delete-button" mat-icon-button>
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+
+  <h4 class="part-header header">Магазины</h4>
+  <div *ngIf="activeWorker?.shops as shops" class="worker-info__shops">
+    <div *ngFor="let s of shops" class="shop shop-info">
+      <div class="shop-info__logo">SBS</div>
+
+      <div class="shop-info__wrapper">
+        <div class="shop-info__name">
+          {{s.name}}
         </div>
-        <div class="shop__remove-button-wrapper">
-          <button (click)="onShopRemoveClick(s)" class="remove-button" mat-icon-button>
-            <mat-icon inline>remove_circle</mat-icon>
-          </button>
+
+        <div class="shop-info__address">
+          {{s.fullAddress}}
         </div>
       </div>
+
+      <div class="shop__remove-button-wrapper">
+        <button (click)="onShopRemoveClick(s)" class="remove-button" mat-icon-button>
+          <mat-icon inline>remove_circle</mat-icon>
+        </button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -59,6 +70,8 @@
   <div class="worker-container worker-container--empty">
     <h3>специалист не назначен</h3>
     <p>Чтобы начать работу с нераспределенными магазинами вам необходимо добавить хотя бы одного специалиста</p>
-    <mat-icon class="add-person-icon">person_add_alt_1</mat-icon>
+    <div class="add-person-icon">
+      <mat-icon inline>person_add_alt_1</mat-icon>
+    </div>
   </div>
 </ng-template>

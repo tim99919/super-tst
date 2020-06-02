@@ -7,7 +7,6 @@ export interface IShop {
   id: number;
   name: string;
   fullAddress: string;
-  isDistributed?: boolean;
 }
 
 export interface IWorker {

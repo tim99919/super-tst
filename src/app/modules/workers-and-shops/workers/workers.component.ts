@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
 import {WorkersShopsDataService} from '../workers-shops-data.service';
 import {IShop, IWorker, IWorkers} from '../models';
+import {WorkersShopsStateService} from '../workers-shops-state.service';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class WorkersComponent implements OnInit {
 
   constructor(
     private _cdr: ChangeDetectorRef,
-    private _dataService: WorkersShopsDataService
+    private _dataService: WorkersShopsDataService,
+    private _wsStateService: WorkersShopsStateService
   ) {
   }
 
@@ -54,7 +56,7 @@ export class WorkersComponent implements OnInit {
     }
 
     this.activeWorkerId = worker.id;
-    console.log(this.activeWorkerId);
+    this._wsStateService.activeWorker = this.activeWorkerId;
 
     this._addedWorkers.set(worker.id, worker);
     this._cdr.markForCheck();
@@ -69,6 +71,7 @@ export class WorkersComponent implements OnInit {
     this.removedWorker.emit(this.activeWorker);
     this._addedWorkers.delete(this.activeWorkerId);
     this.activeWorkerId = previouslyAddedWorkerId;
+    this._wsStateService.activeWorker = this.activeWorkerId ? this.activeWorkerId : null;
     this._cdr.markForCheck();
   }
 
@@ -112,7 +115,6 @@ export class WorkersComponent implements OnInit {
     const workersIds = [...this._addedWorkers.keys()];
     const activeWorkerIndex = workersIds.findIndex(w => w === this.activeWorkerId);
 
-    console.log(workersIds[activeWorkerIndex - 1]);
     return workersIds[activeWorkerIndex - 1];
   }
 }

@@ -7,6 +7,7 @@ import {WorkersComponent} from './workers/workers.component';
 import {ShopsComponent} from './shops/shops.component';
 import {MaterialModule} from '../../material.module';
 import {WorkersShopsDataService} from './workers-shops-data.service';
+import {WorkersShopsStateService} from './workers-shops-state.service';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import {WorkersShopsDataService} from './workers-shops-data.service';
     WorkersAndShopsRoutingModule,
     MaterialModule
   ],
-  providers: [WorkersShopsDataService]
+  providers: [WorkersShopsDataService, WorkersShopsStateService]
 })
 export class WorkersAndShopsModule {
 }

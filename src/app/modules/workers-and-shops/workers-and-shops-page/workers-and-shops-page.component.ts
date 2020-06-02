@@ -24,7 +24,7 @@ export class WorkersAndShopsPageComponent implements OnInit {
   }
 
   onShopDeleteFromWorker(shop: IShop): void {
-    this._workersShopsDataService.removeWorkerShopBinding(shop.id);
+    this._deleteShop(shop);
   }
 
   onWorkerDelete(worker: IWorker): void {
@@ -35,10 +35,14 @@ export class WorkersAndShopsPageComponent implements OnInit {
     let shop = worker.shops.pop();
 
     while (shop) {
-      this._workersShopsDataService.removeWorkerShopBinding(shop.id);
-      this.shopsComponent.restoreShopFromMoved(shop.id);
+      this._deleteShop(shop);
 
       shop = worker.shops.pop();
     }
+  }
+
+  private _deleteShop(shop) {
+    this._workersShopsDataService.removeWorkerShopBinding(shop.id);
+    this.shopsComponent.restoreShopFromMoved(shop.id);
   }
 }
