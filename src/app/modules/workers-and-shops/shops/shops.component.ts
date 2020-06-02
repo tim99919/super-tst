@@ -1,14 +1,6 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
-import MOCK_SHOPS from '../../../mocks/shops';
-import {of} from 'rxjs';
-
-export interface IShop {
-  id: number;
-  name: string;
-  fullAddress: string;
-}
-
-export type IShops = IShop[];
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
+import {WorkersShopsDataService} from '../workers-shops-data.service';
+import {IShop, IShops} from '../models';
 
 @Component({
   selector: 'super-shops',
@@ -24,21 +16,32 @@ export class ShopsComponent implements OnInit {
 
   shops: IShops;
 
+  // Shops stored in Map for restoring them from here
   private _movedShops = new Map<number, IShop>();
 
-  constructor() {
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    private _dataService: WorkersShopsDataService
+  ) {
   }
 
-  ngOnInit() {
-    of(MOCK_SHOPS).subscribe((s: IShops) => this.shops = s);
+  ngOnInit(): void {
+    this._dataService.getShopsData().subscribe((s: IShops) => this.shops = s);
   }
 
   trackById(index: number, shop: IShop): number {
     return shop.id;
   }
 
-  onMoveButtonClick(shop: IShop) {
+  onMoveButtonClick(shop: IShop): void {
+    const shopToMoveIndex = this.shops.findIndex(s => s === shop);
+    this.shops.splice(shopToMoveIndex, 1);
     this._movedShops.set(shop.id, shop);
     this.movedShop.emit(shop);
+  }
+
+  restoreShopFromMoved(shopId: number): void {
+    this.shops.push(this._movedShops.get(shopId));
+    this._cdr.markForCheck();
   }
 }

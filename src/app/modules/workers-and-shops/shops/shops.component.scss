@@ -20,55 +20,6 @@
   }
 }
 
-.shop {
-  display: flex;
-  align-items: center;
-
-  padding: 20px;
-
-  &__logo {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 60px;
-    width: 60px;
-    margin-right: 10px;
-
-    border-radius: 100%;
-
-    color: #ffffff;
-    background-color: #464646;
-  }
-
-  &__info {
-    display: flex;
-    flex-flow: row wrap;
-
-    margin-left: 10px;
-
-    white-space: nowrap;
-
-    &__name {
-      flex: auto;
-      width: 100%;
-
-      color: $super-color-text;
-
-      font-size: 1.2em;
-      font-weight: 500;
-    }
-
-    &__address {
-      color: $super-color-text-faded;
-
-      font-size: .95em;
-      font-weight: 300;
-    }
-  }
-}
-
 .move-button-wrapper {
   transform: scaleX(-1);
 }

@@ -29,10 +29,28 @@
     <div class="worker-info__name">
       <img [attr.src]="activeWorker.logo" alt="аватарка сотрудника" class="worker-info__avatar" height="100%">
       {{activeWorker.fullName}}
+      <button (click)="onWorkerDeleteClick()" mat-icon-button>
+        <mat-icon>delete_outline</mat-icon>
+      </button>
     </div>
     <h4 class="worker-info__part-header header">Магазины</h4>
     <div *ngIf="activeWorker?.shops as shops" class="worker-info__shops">
-      <div *ngFor="let s of shops">{{s.name}}</div>
+      <div *ngFor="let s of shops" class="shop shop-info">
+        <div class="shop-info__logo">SBS</div>
+        <div class="shop-info__wrapper">
+          <div class="shop-info__name">
+            {{s.name}}
+          </div>
+          <div class="shop-info__address">
+            {{s.fullAddress}}
+          </div>
+        </div>
+        <div class="shop__remove-button-wrapper">
+          <button (click)="onShopRemoveClick(s)" class="remove-button" mat-icon-button>
+            <mat-icon inline>remove_circle</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

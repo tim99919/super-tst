@@ -1,14 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IShop} from '../shops/shops.component';
 import {WorkersComponent} from '../workers/workers.component';
 import {WorkersShopsDataService} from '../workers-shops-data.service';
+import {ShopsComponent} from '../shops/shops.component';
+import {IShop, IWorker} from '../models';
 
 @Component({
   templateUrl: './workers-and-shops-page.component.html',
   styleUrls: ['./workers-and-shops-page.component.scss']
 })
 export class WorkersAndShopsPageComponent implements OnInit {
-  @ViewChild(WorkersComponent, {static: false}) workers: WorkersComponent;
+  @ViewChild(WorkersComponent, {static: false}) workersComponent: WorkersComponent;
+  @ViewChild(ShopsComponent, {static: false}) shopsComponent: ShopsComponent;
 
   constructor(private _workersShopsDataService: WorkersShopsDataService) {
   }
@@ -16,8 +18,27 @@ export class WorkersAndShopsPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  onShopMove(shop: IShop) {
-    this._workersShopsDataService.addWorkerShopBinding(this.workers.activeWorker.id, shop.id);
-    this.workers.addWorkerShop(shop);
+  onShopMove(shop: IShop): void {
+    this._workersShopsDataService.addWorkerShopBinding(this.workersComponent.activeWorker.id, shop.id);
+    this.workersComponent.addWorkerShop(shop);
+  }
+
+  onShopDeleteFromWorker(shop: IShop): void {
+    this._workersShopsDataService.removeWorkerShopBinding(shop.id);
+  }
+
+  onWorkerDelete(worker: IWorker): void {
+    if (!worker.shops || !worker.shops.length) {
+      return;
+    }
+
+    let shop = worker.shops.pop();
+
+    while (shop) {
+      this._workersShopsDataService.removeWorkerShopBinding(shop.id);
+      this.shopsComponent.restoreShopFromMoved(shop.id);
+
+      shop = worker.shops.pop();
+    }
   }
 }

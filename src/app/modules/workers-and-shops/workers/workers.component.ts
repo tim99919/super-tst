@@ -1,14 +1,7 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit} from '@angular/core';
-import {of} from 'rxjs';
-import MOCK_USERS from '../../../mocks/users';
-import {IShop, IShops} from '../shops/shops.component';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
+import {WorkersShopsDataService} from '../workers-shops-data.service';
+import {IShop, IWorker, IWorkers} from '../models';
 
-interface IWorker {
-  id: number;
-  fullName: string;
-  logo: string;
-  shops?: IShops;
-}
 
 @Component({
   selector: 'super-workers',
@@ -19,13 +12,19 @@ interface IWorker {
 export class WorkersComponent implements OnInit {
   @HostBinding('class') readonly classes = ['workers'];
 
-  workers: IWorker[];
+  @Output()
+  removedShop = new EventEmitter<IShop>();
+
+  @Output()
+  removedWorker = new EventEmitter<IWorker>();
+
+  workers: IWorkers;
 
   activeWorkerId: number;
 
   private _addedWorkers = new Map<number, IWorker>();
 
-  get addedWorkers(): IWorker[] {
+  get addedWorkers(): IWorkers {
     return [...this._addedWorkers.values()];
   }
 
@@ -33,18 +32,21 @@ export class WorkersComponent implements OnInit {
     return this._addedWorkers.get(this.activeWorkerId);
   }
 
-  constructor(private _cdr: ChangeDetectorRef) {
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    private _dataService: WorkersShopsDataService
+  ) {
   }
 
-  ngOnInit() {
-    of(MOCK_USERS).subscribe((w: IWorker[]) => this.workers = w);
+  ngOnInit(): void {
+    this._dataService.getWorkersData().subscribe((w: IWorkers) => this.workers = w);
   }
 
   trackByFn(index: number, worker: IWorker): number {
     return worker.id;
   }
 
-  onAddWorkerClick() {
+  onAddWorkerClick(): void {
     const worker = this._getWorker();
 
     if (!worker) {
@@ -52,23 +54,30 @@ export class WorkersComponent implements OnInit {
     }
 
     this.activeWorkerId = worker.id;
+    console.log(this.activeWorkerId);
 
     this._addedWorkers.set(worker.id, worker);
     this._cdr.markForCheck();
   }
 
-  onWorkerDelete(id: number) {
-    const worker = this._addedWorkers.get(id);
+  onWorkerDeleteClick(): void {
+    const worker = this._addedWorkers.get(this.activeWorkerId);
+    const previouslyAddedWorkerId = this._findPreviouslyAddedWorkerId();
 
     this.workers.push(worker);
+
+    this.removedWorker.emit(this.activeWorker);
+    this._addedWorkers.delete(this.activeWorkerId);
+    this.activeWorkerId = previouslyAddedWorkerId;
+    this._cdr.markForCheck();
   }
 
-  onWorkerTabClick(workerId: number) {
+  onWorkerTabClick(workerId: number): void {
     this.activeWorkerId = workerId;
     this._cdr.markForCheck();
   }
 
-  addWorkerShop(shop: IShop) {
+  addWorkerShop(shop: IShop): void {
     this._cdr.markForCheck();
 
     if (!this.activeWorker.shops) {
@@ -78,7 +87,32 @@ export class WorkersComponent implements OnInit {
     this.activeWorker.shops.push(shop);
   }
 
-  private _getWorker() {
+  removeActiveWorkerShops(shopId?: number): void {
+    if (!shopId) {
+      this.activeWorker.shops = undefined;
+
+      return;
+    }
+
+    const shopToRemoveIndex = this.activeWorker.shops.findIndex(s => s.id === shopId);
+
+    this.activeWorker.shops.splice(shopToRemoveIndex, 1);
+  }
+
+  onShopRemoveClick(shop: IShop): void {
+    this.removedShop.emit(shop);
+    this.removeActiveWorkerShops(shop.id);
+  }
+
+  private _getWorker(): IWorker {
     return this.workers.pop();
+  }
+
+  private _findPreviouslyAddedWorkerId(): number {
+    const workersIds = [...this._addedWorkers.keys()];
+    const activeWorkerIndex = workersIds.findIndex(w => w === this.activeWorkerId);
+
+    console.log(workersIds[activeWorkerIndex - 1]);
+    return workersIds[activeWorkerIndex - 1];
   }
 }
