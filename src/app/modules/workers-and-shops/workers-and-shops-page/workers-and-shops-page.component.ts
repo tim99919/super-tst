@@ -41,6 +41,10 @@ export class WorkersAndShopsPageComponent implements OnInit {
     }
   }
 
+  onSaveClick() {
+    this._workersShopsDataService.createWorkerShopRequest();
+  }
+
   private _deleteShop(shop) {
     this._workersShopsDataService.removeWorkerShopBinding(shop.id);
     this.shopsComponent.restoreShopFromMoved(shop.id);

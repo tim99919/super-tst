@@ -36,8 +36,19 @@
 }
 
 
-.col {
+.fx-col {
   display: flex;
   width: 50%;
   height: 100%;
+
+  &--flow-column {
+    flex-flow: column;
+  }
+
+  .save-button {
+    font-size: 1.1em;
+    width: 335px;
+    margin-bottom: 25px;
+    line-height: 65px;
+  }
 }
