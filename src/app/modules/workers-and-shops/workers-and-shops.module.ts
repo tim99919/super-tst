@@ -9,6 +9,7 @@ import {MaterialModule} from '../../material.module';
 import {WorkersShopsDataService} from './workers-shops-data.service';
 import {WorkersShopsStateService} from './workers-shops-state.service';
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
+import {HttpClientModule} from '@angular/common/http';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {};
 
@@ -22,7 +23,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {};
     CommonModule,
     WorkersAndShopsRoutingModule,
     MaterialModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    HttpClientModule
   ],
   providers: [
     WorkersShopsDataService,

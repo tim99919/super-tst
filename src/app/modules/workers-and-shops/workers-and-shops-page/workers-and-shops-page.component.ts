@@ -42,7 +42,7 @@ export class WorkersAndShopsPageComponent implements OnInit {
   }
 
   onSaveClick() {
-    this._workersShopsDataService.createWorkerShopRequest();
+    this._workersShopsDataService.createWorkerShopRequest().subscribe();
   }
 
   private _deleteShop(shop) {
