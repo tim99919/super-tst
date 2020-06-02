@@ -1,0 +1,17 @@
+<div class="container workers-shops">
+  <div class="workers-shops-wrapper">
+    <div class="fx-col">
+      <super-workers
+        (removedShop)="onShopDeleteFromWorker($event)"
+        (removedWorker)="onWorkerDelete($event)"
+      ></super-workers>
+    </div>
+    <div class="fx-col fx-col--flow-column">
+      <button (click)="onSaveClick()" class="save-button" mat-stroked-button>
+        Сохранить измненения
+        <mat-icon>check_circle_outline</mat-icon>
+      </button>
+      <super-shops (movedShop)="onShopMove($event)"></super-shops>
+    </div>
+  </div>
+</div>

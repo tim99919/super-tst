@@ -1,0 +1,31 @@
+@import "./colors";
+
+.shops {
+  &__header-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__count {
+    margin-left: 9px;
+
+    color: $super-color-text-faded;
+    font-weight: 500;
+  }
+
+  &__warn {
+    margin-left: 11px;
+    font-size: 16px;
+    line-height: 16px;
+    color: $super-color-warn;
+  }
+}
+
+.move-button-wrapper {
+  transform: scaleX(-1);
+}
+
+.move-button {
+  font-size: 30px;
+  line-height: 30px;
+}

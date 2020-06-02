@@ -1,0 +1,30 @@
+<div class="shops__header-wrapper">
+  <h4 class="shops__header header">Нераспределенные магазины:</h4>
+  <span class="shops__count">{{shops?.length}}</span>
+  <span *ngIf="shops?.length" class="shops__warn">
+    <mat-icon>warning</mat-icon>
+  </span>
+</div>
+
+<div class="scrollable-container" perfectScrollbar>
+  <div class="scrollable-content-wrapper">
+    <div *ngFor="let s of shops; trackBy: trackById" class="shop shop-info">
+      <div class="move-button-wrapper">
+        <button
+          (click)="onMoveButtonClick(s)"
+          [disabled]="activeWorker === null"
+          class="move-button"
+          mat-icon-button
+        >
+          <mat-icon inline>arrow_right_alt</mat-icon>
+        </button>
+      </div>
+
+      <div class="shop__logo shop-info__logo">SBS</div>
+      <div class="shop__info shop-info__wrapper">
+        <div class="shop__info__name shop-info__name">{{s.name}}</div>
+        <div class="shop__info__address">{{s.fullAddress}}</div>
+      </div>
+    </div>
+  </div>
+</div>
