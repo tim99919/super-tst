@@ -2,12 +2,12 @@
   <h4 class="shops__header header">Нераспределенные магазины:</h4>
   <span class="shops__count">{{shops?.length}}</span>
   <span *ngIf="shops?.length" class="shops__warn">
-    <mat-icon class="shops__warn__icon" color="accent" inline>warning</mat-icon>
+    <mat-icon>warning</mat-icon>
   </span>
 </div>
 
-<div class="shop-info-container" perfectScrollbar>
-  <div class="shop-info-wrapper" >
+<div class="scrollable-container" perfectScrollbar>
+  <div class="scrollable-content-wrapper">
     <div *ngFor="let s of shops; trackBy: trackById" class="shop shop-info">
       <div class="move-button-wrapper">
         <button

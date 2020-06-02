@@ -9,7 +9,7 @@
   align-items: center;
 
   width: calc(100% + 10px);
-  min-height: 90px;
+  height: 90px;
 
   &__tabs {
     overflow-x: hidden;
@@ -40,7 +40,7 @@
   }
 
   &--active {
-    box-shadow: 0 0 10px;
+    box-shadow: 0 0 10px $super-color-text-faded;
     opacity: 1;
 
     &:after {
@@ -68,6 +68,11 @@
   display: flex;
   align-items: center;
   padding: 10px 15px;
+  color: $super-color-text-faded;
+
+  > button {
+    background: lighten($super-color-text-faded, 25);
+  }
 
   &__description {
     padding-left: 20px;
@@ -86,14 +91,19 @@
 
 .worker-container {
   z-index: 9;
+  position: relative;
+  flex: auto;
+  display: flex;
+  flex-flow: column;
+
   width: 100%;
-  height: 100%;
+  //height: 100%;
   padding: 35px;
   border-radius: 0 15px 15px 15px;
 
   background-color: #ffffff;
 
-  box-shadow: 0 0 15px;
+  box-shadow: 0 0 15px $super-color-text-faded;
 
   &--empty {
     display: flex;
@@ -156,6 +166,32 @@
     margin-left: auto;
   }
 
-  &__name {
+  &__shops {
+    &--empty {
+      display: flex;
+      align-items: center;
+
+      color: $super-color-text;
+
+      & > mat-icon {
+        color: $super-color-warn;
+        margin-left: 10px;
+      }
+    }
   }
+}
+
+.shop {
+  &__remove-button-wrapper {
+    margin-left: auto;
+    color: $super-color-text-faded;
+    font-size: 1.2em;
+  }
+}
+
+.remove-button {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  background-color: lighten($super-color-text-faded, 25);
 }

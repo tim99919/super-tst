@@ -15,7 +15,7 @@
   </div>
 
   <div (click)="onAddWorkerClick()" class="button-add-worker">
-    <button [disabled]="!workers?.length" color="primary" mat-fab>
+    <button [disabled]="!workers?.length" mat-icon-button>
       <mat-icon>add</mat-icon>
     </button>
     <p *ngIf="!addedWorkers?.length" class="button-add-worker__description">Добавить специалиста</p>
@@ -32,7 +32,7 @@
 
     <div class="worker-info__name">{{activeWorker.fullName}}</div>
 
-    <div *ngIf="activeWorker.shops?.length as shopsCount" class="worker-info__shops-count">
+    <div *ngIf="activeWorker?.shops?.length as shopsCount" class="worker-info__shops-count">
       {{shopsCount}} магазин
     </div>
 
@@ -42,26 +42,36 @@
   </div>
 
   <h4 class="part-header header">Магазины</h4>
-  <div *ngIf="activeWorker?.shops as shops" class="worker-info__shops">
-    <div *ngFor="let s of shops" class="shop shop-info">
-      <div class="shop-info__logo">SBS</div>
+  <div class="scrollable-container" perfectScrollbar>
+    <div class="scrollable-content-wrapper">
+      <div *ngIf="activeWorker?.shops as shops; else shopsEmptyTpl" class="worker-info__shops">
+        <div *ngFor="let s of shops" class="shop shop-info">
+          <div class="shop-info__logo">SBS</div>
 
-      <div class="shop-info__wrapper">
-        <div class="shop-info__name">
-          {{s.name}}
-        </div>
+          <div class="shop-info__wrapper">
+            <div class="shop-info__name">
+              {{s.name}}
+            </div>
 
-        <div class="shop-info__address">
-          {{s.fullAddress}}
+            <div class="shop-info__address">
+              {{s.fullAddress}}
+            </div>
+          </div>
+
+          <div class="shop__remove-button-wrapper">
+            <button (click)="onShopRemoveClick(s)" class="remove-button" mat-icon-button>
+              <mat-icon inline>remove</mat-icon>
+            </button>
+          </div>
+
         </div>
       </div>
-
-      <div class="shop__remove-button-wrapper">
-        <button (click)="onShopRemoveClick(s)" class="remove-button" mat-icon-button>
-          <mat-icon inline>remove_circle</mat-icon>
-        </button>
-      </div>
-
+      <ng-template #shopsEmptyTpl>
+        <div class="worker-info__shops--empty">
+          Не назначены
+          <mat-icon>warning</mat-icon>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

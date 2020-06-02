@@ -115,6 +115,10 @@ export class WorkersComponent implements OnInit {
     const workersIds = [...this._addedWorkers.keys()];
     const activeWorkerIndex = workersIds.findIndex(w => w === this.activeWorkerId);
 
+    if (activeWorkerIndex === 0) {
+      return workersIds[activeWorkerIndex + 1];
+    }
+
     return workersIds[activeWorkerIndex - 1];
   }
 }
