@@ -1,6 +1,9 @@
 @import "colors";
 @import "material";
 
+// PerfectScrollBar styles
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
 .header {
   color: $super-color-text-faded;
   font-weight: 300;

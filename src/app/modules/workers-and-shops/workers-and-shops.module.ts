@@ -8,7 +8,9 @@ import {ShopsComponent} from './shops/shops.component';
 import {MaterialModule} from '../../material.module';
 import {WorkersShopsDataService} from './workers-shops-data.service';
 import {WorkersShopsStateService} from './workers-shops-state.service';
+import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {};
 
 @NgModule({
   declarations: [
@@ -19,9 +21,16 @@ import {WorkersShopsStateService} from './workers-shops-state.service';
   imports: [
     CommonModule,
     WorkersAndShopsRoutingModule,
-    MaterialModule
+    MaterialModule,
+    PerfectScrollbarModule
   ],
-  providers: [WorkersShopsDataService, WorkersShopsStateService]
+  providers: [
+    WorkersShopsDataService,
+    WorkersShopsStateService,
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }]
 })
 export class WorkersAndShopsModule {
 }

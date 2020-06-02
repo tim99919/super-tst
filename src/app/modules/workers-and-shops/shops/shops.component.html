@@ -6,22 +6,25 @@
   </span>
 </div>
 
-<div *ngFor="let s of shops; trackBy: trackById" class="shop shop-info">
-  <div class="move-button-wrapper">
-    <button
-      (click)="onMoveButtonClick(s)"
-      [disabled]="activeWorker === null"
-      class="move-button"
-      mat-icon-button
-    >
-      <mat-icon inline>arrow_right_alt</mat-icon>
-    </button>
-  </div>
+<div class="shop-info-container" perfectScrollbar>
+  <div class="shop-info-wrapper" >
+    <div *ngFor="let s of shops; trackBy: trackById" class="shop shop-info">
+      <div class="move-button-wrapper">
+        <button
+          (click)="onMoveButtonClick(s)"
+          [disabled]="activeWorker === null"
+          class="move-button"
+          mat-icon-button
+        >
+          <mat-icon inline>arrow_right_alt</mat-icon>
+        </button>
+      </div>
 
-  <div class="shop__logo shop-info__logo">SBS</div>
-  <div class="shop__info shop-info__wrapper">
-    <div class="shop__info__name shop-info__name">{{s.name}}</div>
-    <div class="shop__info__address">{{s.fullAddress}}</div>
+      <div class="shop__logo shop-info__logo">SBS</div>
+      <div class="shop__info shop-info__wrapper">
+        <div class="shop__info__name shop-info__name">{{s.name}}</div>
+        <div class="shop__info__address">{{s.fullAddress}}</div>
+      </div>
+    </div>
   </div>
 </div>
-
